@@ -14,7 +14,7 @@ Open[0] usb:0
 # ------------------------------------------------------------------------------------------
 # HV_bias
 # ------------------------------------------------------------------------------------------
-HV_Vbias                           43 V                 # Bias voltage (common to all channels, fine adjustable channel by channel by "HV_IndivAdj")
+HV_Vbias                           43.0 V                 # Bias voltage (common to all channels, fine adjustable channel by channel by "HV_IndivAdj")
 HV_Imax                            1.0 mA               # Max current provided by the HV. The HV will be shut down if the current exceeds this limit.
 HV_Adjust_Range                    4.5                  # DAC range for the individual HV adjust.. Options: 4.5, 2.5, DISABLED
 HV_IndivAdj                        255                  # DAC setting for the Individual HV Adjust. Range from 0 to 255
@@ -29,7 +29,7 @@ StartRunMode                       ASYNC                # Start of Run mode. Opt
 StopRunMode                        PRESET_TIME          # Run Stop Mode. Options: MANUAL, PRESET_TIME, PRESET_COUNTS
 EventBuildingMode                  DISABLED             # DISABLED: no event building, TRGTIME_SORTING: event sorting by Trigger Time stamp, TRGID_SORTING: event sorting by Trigger ID. Options: DISABLED, TRGTIME_SORTING, TRGID_SORTING
 TstampCoincWindow                  100 ns               # Coincidence Window for Event Building based on time stamp
-PresetTime                         5 m                  # Preset Time
+PresetTime                         1 m                  # Preset Time
 PresetCounts                       1000                 # Preset Counts (number of acquired events)
 JobFirstRun                        1                    # First Run of the Job
 JobLastRun                         154                  # Last Run of the Job
@@ -94,7 +94,7 @@ LG_Gain                            63                   # Low Gain Setting (1 to
 Pedestal                           100                  # Common Pedestal in channels (ADC reading with no input signal)
 ZS_Threshold_LG                    0                    # Threshold for Zero Suppression (LG)
 ZS_Threshold_HG                    0                    # Threshold for Zero Suppression (HG)
-HG_ShapingTime                     88 ns                # Shaping Time of the slow shaper (High Gain). Options: 87.5 ns, 75 ns, 62.5 ns, 50 ns, 37.5 ns, 25 ns, 12.5 ns
+HG_ShapingTime                     87.5 ns                # Shaping Time of the slow shaper (High Gain). Options: 87.5 ns, 75 ns, 62.5 ns, 50 ns, 37.5 ns, 25 ns, 12.5 ns
 LG_ShapingTime                     25 ns                # Shaping Time of the slow shaper (Low Gain). Options: 87.5 ns, 75 ns, 62.5 ns, 50 ns, 37.5 ns, 25 ns, 12.5 ns
 HoldDelay                          100 ns               # Delay between bunch trigger (start of peak detection) and hold (stop of peak detection)
 MuxClkPeriod                       300 ns               # Multiplexer readout speed. Best setting = 300 ns

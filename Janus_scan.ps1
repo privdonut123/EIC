@@ -17,7 +17,7 @@ function adj_job_num([int]$jn = 5, [string]$file_name = '.\test_config.txt')
             }  
     }
 
-function adj_bias([int]$vb = 38, [string]$file_name = '.\test_config.txt')
+function adj_bias([decimal]$vb = 38, [string]$file_name = '.\test_config.txt')
     {
         $filecontent = Get-Content -Path $file_name
         $v_line = Get-Content $file_name | Select-String HV_Vbias | Select-Object -ExpandProperty Line
@@ -55,7 +55,7 @@ function adj_sleep([int]$slp_t = 15, [string]$file_name = '.\test_config.txt')
                 Write-Output ("Sleep time adjusted to", $slp_t, "s" -join " ")
             }  
     }
-function adj_shape([int]$st = 25, [string]$file_name = '.\test_config.txt')
+function adj_shape([decimal]$st = 25, [string]$file_name = '.\test_config.txt')
     {
         $filecontent = Get-Content -Path $file_name
         $s_line = Get-Content $file_name | Select-String HG_ShapingTime | Select-Object -ExpandProperty Line
@@ -74,32 +74,28 @@ function adj_shape([int]$st = 25, [string]$file_name = '.\test_config.txt')
             }  
     }
 Get-ChildItem -Path .\Generated_config_files -Include *.* -File -Recurse | ForEach-Object { $_.Delete()}
-$v_low_bound = 38
-$v_up_bound = 43
-$v_step = .5
-$sleep_time = 15
-$s_low_bound = 12.5
-$s_up_bound = 87.5
-$s_step = 12.5
-$total_num_of_files = 2*(((($v_up_bound - $v_low_bound)/$v_step) + 1)*((($s_up_bound - $s_low_bound)/$s_step) + 1))
+[decimal]$v_low_bound = 38
+[decimal]$v_up_bound = 43
+[decimal]$v_step = .5
+[decimal]$sleep_time = 15
+[decimal]$s_low_bound = 12.5
+[decimal]$s_up_bound = 87.5
+[decimal]$s_step = 12.5
+[decimal]$total_num_of_files = 2*(((($v_up_bound - $v_low_bound)/$v_step) + 1)*((($s_up_bound - $s_low_bound)/$s_step) + 1))
 Write-Output $total_num_of_files
 $run_counter = 1
 $sample_config = ".\test_config.txt"
-#Write-Output $sample_config
 adj_sleep $sleep_time $sample_config
 adj_job_num $total_num_of_files $sample_config
 for($i = $v_low_bound; $i -le $v_up_bound; $i = $i + $v_step)
     {
         adj_bias $i $sample_config
-        
+        Write-Output $i
         
         for($j = $s_low_bound; $j -le $s_up_bound; $j = $j + $s_step)
             {
                 adj_shape $j $sample_config
                 
-                #Start-Process -Wait "notepad.exe"
-                #$cmdOutput = <command>
-                #Write-Output $cmdOutput
                 $config_name = (".\Generated_config_files\Janus_Config_Run", $run_counter,".txt" -join "")
                 New-Item $config_name -Force
                 Get-Content $sample_config | Set-Content .\$config_name
@@ -110,9 +106,13 @@ for($i = $v_low_bound; $i -le $v_up_bound; $i = $i + $v_step)
                 Get-Content $sample_config | Set-Content .\$config_name
                 
                 $run_counter++
-                Start-Sleep -Milliseconds 100 #optional, rarely can crash and corrupt files without it
+                Start-Sleep -Milliseconds 150 <#
+                                                Optional, issue seems to be that rapidly opening and closing the test_config file
+                                                can cause the program to crash. It may also corrupt the test_config file, so always 
+                                                keep a backup of the original somewhere else. Increase the time if crashing is too
+                                                common. A workaround to this may be to implement the raw text into the powershell
+                                                script, but this may be fiddly.
+                                                #>
             }
         
-        #Write-Output $run_counter
-        #$run_counter++
     }
