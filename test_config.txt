@@ -14,7 +14,7 @@ Open[0] usb:0
 # ------------------------------------------------------------------------------------------
 # HV_bias
 # ------------------------------------------------------------------------------------------
-HV_Vbias                           43.0 V                 # Bias voltage (common to all channels, fine adjustable channel by channel by "HV_IndivAdj")
+HV_Vbias                           44.5 V                 # Bias voltage (common to all channels, fine adjustable channel by channel by "HV_IndivAdj")
 HV_Imax                            1.0 mA               # Max current provided by the HV. The HV will be shut down if the current exceeds this limit.
 HV_Adjust_Range                    4.5                  # DAC range for the individual HV adjust.. Options: 4.5, 2.5, DISABLED
 HV_IndivAdj                        255                  # DAC setting for the Individual HV Adjust. Range from 0 to 255
@@ -32,7 +32,7 @@ TstampCoincWindow                  100 ns               # Coincidence Window for
 PresetTime                         1 m                  # Preset Time
 PresetCounts                       1000                 # Preset Counts (number of acquired events)
 JobFirstRun                        1                    # First Run of the Job
-JobLastRun                         154                  # Last Run of the Job
+JobLastRun                         504                  # Last Run of the Job
 RunSleep                           15 s                 # Wait Time between runs of a job
 EnableJobs                         1                    # Enable Jobs
 RunNumber_AutoIncr                 1                    # Run Number auto increment

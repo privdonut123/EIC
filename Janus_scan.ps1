@@ -74,9 +74,9 @@ function adj_shape([decimal]$st = 25, [string]$file_name = '.\test_config.txt')
             }  
     }
 Get-ChildItem -Path .\Generated_config_files -Include *.* -File -Recurse | ForEach-Object { $_.Delete()}
-[decimal]$v_low_bound = 38
-[decimal]$v_up_bound = 43
-[decimal]$v_step = .5
+[decimal]$v_low_bound = 41
+[decimal]$v_up_bound = 44.5
+[decimal]$v_step = .1
 [decimal]$sleep_time = 15
 [decimal]$s_low_bound = 12.5
 [decimal]$s_up_bound = 87.5
